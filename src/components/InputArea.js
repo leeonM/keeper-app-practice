@@ -22,21 +22,16 @@ const InputArea = () => {
   function handleClick(){
     setList(prevList => {
         if (item.title.length < 1 || item.content.length < 1 ){
+            setSubmitStatus(true)
             return [...prevList]
         } else {
+            setSubmitStatus(false)
             return [...prevList, item]
         }
     })
     setItem({
         title: "",
         content: "",
-    })
-    setSubmitStatus(prevValue => {
-        if (item.title.length < 1 || item.content.length < 1 ){
-            return !prevValue
-        } else {
-            return prevValue
-        }
     })
   }
 
@@ -89,10 +84,7 @@ const InputArea = () => {
     
     <div className="flex flex-col w-full my-6 min-h-screen">
         <ul role="list" className="flex flex-col space-y-3 items-center">
-        {/* <ListItem 
-        title="This is the Title"
-        content="This is the Content"
-        /> */}
+
         {list.map((item, index) => (<ListItem
             key={index}
             id={index}
