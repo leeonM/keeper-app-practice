@@ -7,6 +7,7 @@ const InputArea = () => {
         content: ""
     })
     const [list, setList] = useState([])
+    const [submitStatus, setSubmitStatus] = useState(false)
 
   function handleChange(e){
     const { name , value } = e.target;
@@ -20,11 +21,22 @@ const InputArea = () => {
 
   function handleClick(){
     setList(prevList => {
-        return [...prevList,item]
+        if (item.title.length < 1 || item.content.length < 1 ){
+            return [...prevList]
+        } else {
+            return [...prevList, item]
+        }
     })
     setItem({
         title: "",
         content: "",
+    })
+    setSubmitStatus(prevValue => {
+        if (item.title.length < 1 || item.content.length < 1 ){
+            return !prevValue
+        } else {
+            return prevValue
+        }
     })
   }
 
@@ -72,6 +84,7 @@ const InputArea = () => {
       >
         Submit
       </button>
+      {submitStatus ? <p>Please fill in all the details before submitting</p> : null}
     </div>
     
     <div className="flex flex-col w-full my-6 min-h-screen">
